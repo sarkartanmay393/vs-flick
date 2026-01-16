@@ -1,4 +1,4 @@
-const defaultUrl = 'http://localhost:3000';
+const defaultUrl = "https://vs-flick.onrender.com";
 let serverUrl = localStorage.getItem('vs-flick-server') || defaultUrl;
 
 // Initialize socket with current URL
