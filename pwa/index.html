@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VS Flick Controller</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div id="connection-screen" class="screen active">
+        <h1>VS Flick</h1>
+        <p>Enter Pairing Code</p>
+        <div class="input-group">
+            <input type="number" id="code-input" placeholder="0000" maxlength="4">
+        </div>
+        <button id="connect-btn">Connect</button>
+        <p id="status-msg">Disconnected</p>
+
+        <div class="settings-area">
+            <button id="settings-toggle" class="text-btn">Server Settings</button>
+            <div id="settings-panel" class="hidden">
+                <input type="text" id="server-url-input" placeholder="http://localhost:3000">
+                <button id="save-settings-btn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="control-screen" class="screen">
+        <div class="grid">
+            <button class="control-btn" data-action="sidebar">
+                <span class="icon">◫</span>
+                <span class="label">Sidebar</span>
+            </button>
+            <button class="control-btn" data-action="auxbar">
+                <span class="icon">◨</span>
+                <span class="label">Aux Bar</span>
+            </button>
+            <button class="control-btn" data-action="panel">
+                <span class="icon">▭</span>
+                <span class="label">Panel</span>
+            </button>
+            <button class="control-btn" data-action="zen">
+                <span class="icon">⛶</span>
+                <span class="label">Zen Mode</span>
+            </button>
+        </div>
+        <div class="footer">
+            <button id="disconnect-btn">Disconnect</button>
+        </div>
+    </div>
+</body>
+
+</html>
