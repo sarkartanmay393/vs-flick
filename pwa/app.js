@@ -92,44 +92,46 @@ function setupSocketEvents() {
         disconnect();
     });
 
-    function connect() {
-        const code = ui.codeInput.value;
-        if (code.length !== 4) {
-            ui.statusMsg.textContent = 'Enter 4-digit code';
-            return;
+}
+
+function connect() {
+    const code = ui.codeInput.value;
+    if (code.length !== 4) {
+        ui.statusMsg.textContent = 'Enter 4-digit code';
+        return;
+    }
+    currentCode = code;
+    socket.connect();
+}
+
+function disconnect() {
+    socket.disconnect();
+    showScreen('connection');
+    resetButtons();
+}
+
+function sendAction(action) {
+    if (socket.connected) {
+        socket.emit('command', { code: currentCode, action });
+    }
+}
+
+function updateButtonState(action, isActive) {
+    const btn = document.querySelector(`.control-btn[data-action="${action}"]`);
+    if (btn) {
+        if (isActive) {
+            btn.classList.add('active-state');
+        } else {
+            btn.classList.remove('active-state');
         }
-        currentCode = code;
-        socket.connect();
     }
+}
 
-    function disconnect() {
-        socket.disconnect();
-        showScreen('connection');
-        resetButtons();
-    }
+function resetButtons() {
+    document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active-state'));
+}
 
-    function sendAction(action) {
-        if (socket.connected) {
-            socket.emit('command', { code: currentCode, action });
-        }
-    }
-
-    function updateButtonState(action, isActive) {
-        const btn = document.querySelector(`.control-btn[data-action="${action}"]`);
-        if (btn) {
-            if (isActive) {
-                btn.classList.add('active-state');
-            } else {
-                btn.classList.remove('active-state');
-            }
-        }
-    }
-
-    function resetButtons() {
-        document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active-state'));
-    }
-
-    function showScreen(name) {
-        Object.values(screens).forEach(s => s.classList.remove('active'));
-        screens[name].classList.add('active');
-    }
+function showScreen(name) {
+    Object.values(screens).forEach(s => s.classList.remove('active'));
+    screens[name].classList.add('active');
+}
